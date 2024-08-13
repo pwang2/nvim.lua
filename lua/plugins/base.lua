@@ -1,43 +1,36 @@
 return {
-  {
-    'alexghergh/nvim-tmux-navigation',
-    config = function()
-      local nvim_tmux_nav = require('nvim-tmux-navigation')
-      nvim_tmux_nav.setup {
-        disable_when_zoomed = true -- defaults to false
-      }
-      vim.keymap.set('n', "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
-      vim.keymap.set('n', "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
-      vim.keymap.set('n', "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
-      vim.keymap.set('n', "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
-      vim.keymap.set('n', "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive)
-      vim.keymap.set('n', "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
-    end
-  },
-  {
-    'folke/trouble.nvim',
-    config = function()
-      require 'trouble'.setup{}
-    end
-  },
-  { 'numToStr/Comment.nvim', },
-  { 'edkolev/tmuxline.vim' },
-  { 'ggandor/lightspeed.nvim', },
-  { 'stevearc/dressing.nvim' },
-  {
-    'nvim-lualine/lualine.nvim',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons'
-    },
-    config=function()
-      require('lualine').setup()
-    end
-  },
-  {
-    'akinsho/bufferline.nvim',
-    config=function()
-      require("bufferline").setup{}
-    end
-  },
+	{ "numToStr/Comment.nvim" },
+	{ "edkolev/tmuxline.vim" },
+	{ "ggandor/lightspeed.nvim" },
+	{ "stevearc/dressing.nvim" },
+	{ "simeji/winresizer" },
+	{ "sindrets/diffview.nvim" },
+	{ "norcalli/nvim-colorizer.lua" },
+	{ "nvim-tree/nvim-web-devicons" },
+	{ "windwp/nvim-ts-autotag", opts = {} },
+	{ "nvim-lualine/lualine.nvim", opts = {} },
+	{ "folke/trouble.nvim", opts = { use_diagnostic_signs = true } },
+	{ "akinsho/bufferline.nvim", opts = {} },
+	{ "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },
+	{ "github/copilot.vim", enabled = false },
+	{
+		"valloric/MatchTagAlways",
+		init = function()
+			vim.g.mta_filetypes = { html = 1, xhtml = 1, xml = 1, vue = 1 }
+		end,
+	},
+	{
+		"alexghergh/nvim-tmux-navigation",
+		opts = {
+			disable_when_zoomed = true, -- defaults to false
+		},
+		keys = {
+			{ "<C-h>", "<cmd>NvimTmuxNavigateLeft<cr>" },
+			{ "<C-j>", "<cmd>NvimTmuxNavigateDown<cr>" },
+			{ "<C-k>", "<cmd>NvimTmuxNavigateUp<cr>" },
+			{ "<C-l>", "<cmd>NvimTmuxNavigateRight<cr>" },
+			{ "<C-\\>", "<cmd>NvimTmuxNavigateLastActive<cr>" },
+			{ "<C-Space>", "<cmd>NvimTmuxNavigateNext<cr>" },
+		},
+	},
 }
-

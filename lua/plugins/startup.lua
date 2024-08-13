@@ -9,6 +9,7 @@ return  {
       local config_path = vim.fn.stdpath('config')
       local nwd = require('nvim-web-devicons')
       local alpha = require('alpha')
+      local path = require('plenary.path')
       local dashboard = require('alpha.themes.dashboard')
       local cdir = vim.fn.getcwd()
 
