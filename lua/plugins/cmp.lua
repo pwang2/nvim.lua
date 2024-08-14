@@ -1,6 +1,7 @@
 return {
 	{
 		"hrsh7th/nvim-cmp",
+		lazy = true,
 		dependencies = {
 			"onsails/lspkind-nvim",
 			"hrsh7th/cmp-nvim-lsp",
@@ -11,8 +12,7 @@ return {
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 
-			"SirVer/ultisnips",
-			"honza/vim-snippets",
+			-- "quangnguyen30192/cmp-nvim-ultisnips",
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -35,25 +35,11 @@ return {
 				},
 				formatting = {
 					-- format = lspkind.cmp_format({ mode = 'symbol_text' })
-					format = function(entry, vim_item)
-						vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol_text" })
-						vim_item.menu = entry.source.name
-						if entry.source.name == "cmp_tabnine" then
-							local detail = (entry.completion_item.data or {}).detail
-							vim_item.kind = ""
-							if detail and detail:find(".*%%.*") then
-								vim_item.kind = vim_item.kind .. " " .. detail
-							end
-
-							if (entry.completion_item.data or {}).multiline then
-								vim_item.kind = vim_item.kind .. " " .. "[ML]"
-							end
-						elseif entry.source.name == "nvim_lsp" then
-							vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol_text" })
-						end
-						local maxwidth = 80
-						vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
-						return vim_item
+					format = function(entry, item)
+						item.kind = lspkind.symbolic(item.kind, { mode = "symbol_text" })
+						item.menu = entry.source.name
+						item.abbr = string.sub(item.abbr, 1, 80)
+						return item
 					end,
 				},
 				-- preselect = cmp.PreselectMode.Item,
@@ -102,20 +88,22 @@ return {
 					["<C-k>"] = cmp.mapping.confirm({ select = true }),
 					["<C-j>"] = cmp.mapping(function(fallback)
 						cmp.mapping.abort()
-						local copilot_keys = vim.fn["copilot#Accept"]()
-						if copilot_keys ~= "" then
-							vim.api.nvim_feedkeys(copilot_keys, "i", true)
-						else
-							fallback()
-						end
+						-- local copilot_keys = vim.fn["copilot#Accept"]()
+						-- if copilot_keys ~= "" then
+						-- 	vim.api.nvim_feedkeys(copilot_keys, "i", true)
+						-- else
+						fallback()
+						-- end
 					end),
 				},
 				sources = cmp.config.sources({
-					-- { name = "ultisnips" },  -- not working
 					{ name = "nvim_lsp", max_item_count = 10, priority = 100 },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "buffer", max_item_count = 5, priority = 10 },
+					-- { name = "ultisnips", max_item_count = 5 }, -- too slow
 					{ name = "emoji" },
+				}, {
+					{ name = "buffer" },
 				}),
 				confirm_opts = {
 					behavior = cmp.ConfirmBehavior.Replace,

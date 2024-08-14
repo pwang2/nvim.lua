@@ -4,33 +4,49 @@ return {
 	{ "ggandor/lightspeed.nvim" },
 	{ "stevearc/dressing.nvim" },
 	{ "simeji/winresizer" },
-	{ "sindrets/diffview.nvim" },
 	{ "norcalli/nvim-colorizer.lua" },
 	{ "nvim-tree/nvim-web-devicons" },
-	{ "windwp/nvim-ts-autotag", opts = {} },
+	{ "windwp/nvim-ts-autotag", lazy = "true", event = { "BufReadPre", "BufNewFile" }, opts = {} },
 	{ "nvim-lualine/lualine.nvim", opts = {} },
-	{ "folke/trouble.nvim", opts = { use_diagnostic_signs = true } },
-	{ "akinsho/bufferline.nvim", opts = {} },
+	{ "akinsho/bufferline.nvim", event = "BufReadPost", opts = {} },
 	{ "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },
 	{ "github/copilot.vim", enabled = false },
+	{ "sindrets/diffview.nvim", keys = {
+		{ "<leader>df", "<cmd>DiffviewOpen<cr>" },
+	} },
 	{
 		"valloric/MatchTagAlways",
+		ft = { "html", "xml", "vue" },
 		init = function()
-			vim.g.mta_filetypes = { html = 1, xhtml = 1, xml = 1, vue = 1 }
+			vim.g.mta_filetypes = { html = 1, xml = 1, vue = 1 }
 		end,
 	},
 	{
 		"alexghergh/nvim-tmux-navigation",
-		opts = {
-			disable_when_zoomed = true, -- defaults to false
-		},
+		opts = {},
 		keys = {
 			{ "<C-h>", "<cmd>NvimTmuxNavigateLeft<cr>" },
 			{ "<C-j>", "<cmd>NvimTmuxNavigateDown<cr>" },
 			{ "<C-k>", "<cmd>NvimTmuxNavigateUp<cr>" },
 			{ "<C-l>", "<cmd>NvimTmuxNavigateRight<cr>" },
-			{ "<C-\\>", "<cmd>NvimTmuxNavigateLastActive<cr>" },
-			{ "<C-Space>", "<cmd>NvimTmuxNavigateNext<cr>" },
 		},
+	},
+	{
+		"folke/trouble.nvim",
+		opts = { use_diagnostic_signs = true },
+		keys = {
+			{
+				"<leader>xx",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
+		},
+		init = function()
+			vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+				callback = function()
+					vim.cmd([[Trouble qflist open]])
+				end,
+			})
+		end,
 	},
 }

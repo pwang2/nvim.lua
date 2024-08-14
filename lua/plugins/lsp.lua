@@ -1,8 +1,18 @@
 return {
 	{
 		"williamboman/mason.nvim",
+		cmd = "Mason",
+		opts = {
+			ui = {
+				border = "rounded",
+			},
+		},
+	},
+	{
+		"williamboman/mason-lspconfig.nvim",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
-			"williamboman/mason-lspconfig.nvim",
+			"williamboman/mason.nvim",
 		},
 		config = function()
 			require("mason").setup()
@@ -12,8 +22,8 @@ return {
 				ensure_installed = {
 					"lua_ls",
 					"cssls",
+					"yamlls",
 					"html",
-					"jsonls",
 					"tsserver",
 					"pyright",
 					"volar",
@@ -31,14 +41,15 @@ return {
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
+			local borderStyle = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 			local lspconfig = require("lspconfig")
 			local lspConfigUtil = require("lspconfig.util")
+			require("lspconfig.ui.windows").default_options.border = borderStyle
 
 			local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 			function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 				opts = opts or {}
-				-- opts.border = opts.border or 'single'
-				opts.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+				opts.border = borderStyle
 				opts.max_width = opts.max_width or 80
 				return orig_util_open_floating_preview(contents, syntax, opts, ...)
 			end
@@ -71,8 +82,8 @@ return {
 				km("n", "gv", "<cmd>:vsplit | lua vim.lsp.buf.definition()<CR>", kb_opts)
 			end
 
-			local capabilities =
-				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			local default_capabilities = vim.lsp.protocol.make_client_capabilities()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities(default_capabilities)
 			lspConfigUtil.default_config = vim.tbl_extend("force", lspConfigUtil.default_config, {
 				on_attach = on_attach,
 				capabilities = capabilities,
@@ -83,6 +94,17 @@ return {
 			lspconfig.gopls.setup({})
 
 			lspconfig.pyright.setup({})
+
+			lspconfig.yamlls.setup({
+				settings = {
+					yaml = {
+						schemas = {
+							-- kubernetes = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone/all.json",
+							["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone/all.json"] = "*-kind.yaml",
+						},
+					},
+				},
+			})
 
 			lspconfig.tailwindcss.setup({
 				filetypes = { "vue", "html", "css", "javascript", "typescript" },
@@ -97,7 +119,7 @@ return {
 			-- lspconfig.tsserver.setup({ })
 
 			lspconfig.volar.setup({
-				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
 				init_options = {
 					vue = {
 						hybridMode = false,
@@ -107,7 +129,7 @@ return {
 							name = "@vue/typescript-plugin",
 							-- location = "~/.nvm/versions/node/v18.20.3/lib/node_modules/@vue/typescript-plugin",
 							location = "",
-							languages = { "javascript", "typescript", "vue" },
+							languages = { "javascript", "typescript", "vue", "json" },
 						},
 					},
 				},

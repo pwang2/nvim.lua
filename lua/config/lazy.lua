@@ -20,8 +20,8 @@ vim.opt.title = true
 vim.opt.wrap = true
 vim.opt.splitright = true
 vim.opt.expandtab = true
-vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.number = false
+vim.opt.relativenumber = false
 vim.opt.termguicolors = true
 vim.opt.foldenable = false
 vim.opt.shell = "zsh"
@@ -48,7 +48,8 @@ require("lazy").setup({
 	},
 	ui = {
 		backdrop = 0,
-		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+		-- border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+		border = "rounded",
 	},
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.

@@ -2,26 +2,18 @@ return {
 	"mhartington/formatter.nvim",
 	lazy = false,
 	config = function()
+		local prettier = require("formatter.defaults.prettier")
 		require("formatter").setup({
 			filetype = {
-				lua = {
-					require("formatter.filetypes.lua").stylua,
-				},
-				typescript = {
-					require("formatter.defaults.prettier"),
-				},
-				javascript = {
-					require("formatter.defaults.prettier"),
-				},
-				css = {
-					require("formatter.defaults.prettier"),
-				},
-				vue = {
-					require("formatter.defaults.prettier"),
-				},
-				html = {
-					require("formatter.defaults.prettier"),
-				},
+				python = { require("formatter.filetypes.python").yapf },
+				lua = { require("formatter.filetypes.lua").stylua },
+				typescript = { prettier },
+				javascript = { prettier },
+				css = { prettier },
+				json = { prettier },
+				jsonc = { prettier },
+				vue = { prettier },
+				html = { prettier },
 			},
 		})
 
