@@ -6,7 +6,6 @@ return {
 	{ "norcalli/nvim-colorizer.lua" },
 	{ "nvim-tree/nvim-web-devicons" },
 	{ "windwp/nvim-ts-autotag", lazy = "true", event = { "BufReadPre", "BufNewFile" }, opts = {} },
-	{ "nvim-lualine/lualine.nvim", opts = {} },
 	{ "akinsho/bufferline.nvim", event = "BufReadPost", opts = {} },
 	{ "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },
 	{ "github/copilot.vim", enabled = false },

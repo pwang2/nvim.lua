@@ -92,7 +92,7 @@ return {
 					-- { name = "ultisnips", max_item_count = 5 }, -- too slow
 					{ name = "emoji" },
 				}, {
-					{ name = "buffer" },
+					-- { name = "buffer" },
 				}),
 				confirm_opts = {
 					behavior = cmp.ConfirmBehavior.Replace,
