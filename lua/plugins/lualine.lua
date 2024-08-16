@@ -28,7 +28,7 @@ return {
 				{
 					"diagnostics",
 					sources = { "nvim_diagnostic", "nvim_lsp" },
-					symbols = { error = "🆇 ", warn = "⚠️ ", info = "ℹ️ ", hint = " " },
+					symbols = { error = "🆇 ", warn = "🔴 ", info = "❕", hint = " " },
 				},
 			},
 

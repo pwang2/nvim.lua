@@ -27,6 +27,7 @@ vim.cmd([[
 vim.cmd([[
   autocmd BufNewFile,BufRead Dockerfile.* set filetype=dockerfile
   autocmd BufNewFile,BufRead nginx.*      set filetype=nginx
+  autocmd FileType json,jsonc             set conceallevel=1
 ]])
 
 -- put the key binding here to allow using :Command to load the plugin in a lazy way
@@ -39,4 +40,5 @@ vim.cmd([[
   nnoremap <leader>fh <cmd>Telescope help_tags<CR>
 
   nnoremap <leader>rr <cmd>LspRestart<CR>
+  nnoremap <cr><cr>   :nohlsearch<CR>
 ]])

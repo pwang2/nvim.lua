@@ -23,6 +23,7 @@ return {
 					"lua_ls",
 					"cssls",
 					"yamlls",
+					"jsonls",
 					"html",
 					"tsserver",
 					"pyright",
@@ -101,6 +102,35 @@ return {
 						schemas = {
 							-- kubernetes = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone/all.json",
 							["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone/all.json"] = "*-kind.yaml",
+						},
+					},
+				},
+			})
+
+			lspconfig.jsonls.setup({
+				settings = {
+					json = {
+						schemas = {
+							{
+								description = "Tsconfig",
+								fileMatch = { "tsconfig.json", "tsconfig.*.json" },
+								url = "http://json.schemastore.org/tsconfig",
+							},
+							{
+								description = "Lerna config",
+								fileMatch = { "lerna.json" },
+								url = "http://json.schemastore.org/lerna",
+							},
+							{
+								description = "ESLint config",
+								fileMatch = { ".eslintrc.json", ".eslintrc" },
+								url = "http://json.schemastore.org/eslintrc",
+							},
+							{
+								description = "Prettier config",
+								fileMatch = { ".prettierrc", ".prettierrc.json", "prettier.config.json" },
+								url = "http://json.schemastore.org/prettierrc",
+							},
 						},
 					},
 				},

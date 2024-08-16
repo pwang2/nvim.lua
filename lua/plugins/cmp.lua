@@ -13,12 +13,14 @@ return {
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"hrsh7th/cmp-vsnip",
 			"hrsh7th/vim-vsnip",
+			"rafamadriz/friendly-snippets",
 		},
 		config = function()
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
 
 			local has_words_before = function()
+				--luacheck: ignore unpack
 				unpack = unpack or table.unpack
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 				return col ~= 0
@@ -28,9 +30,6 @@ return {
 			local feedkey = function(key, mode)
 				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 			end
-			vim.g.copilot_no_tab_map = true
-			vim.g.copilot_assume_mapped = true
-			vim.g.copilot_tab_fallback = ""
 
 			cmp.setup({
 				snippet = {
@@ -39,7 +38,6 @@ return {
 					end,
 				},
 				formatting = {
-					-- format = lspkind.cmp_format({ mode = 'symbol_text' })
 					format = function(entry, item)
 						item.kind = lspkind.symbolic(item.kind, { mode = "symbol_text" })
 						item.menu = entry.source.name
@@ -86,10 +84,10 @@ return {
 					end),
 				},
 				sources = cmp.config.sources({
-					{ name = "nvim_lsp", max_item_count = 10, priority = 100 },
+					{ name = "vsnip", max_item_count = 3, priority = 50 },
+					{ name = "nvim_lsp", max_item_count = 10, priority = 40 },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "buffer", max_item_count = 5, priority = 10 },
-					-- { name = "ultisnips", max_item_count = 5 }, -- too slow
 					{ name = "emoji" },
 				}, {
 					-- { name = "buffer" },

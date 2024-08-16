@@ -1,10 +1,6 @@
 return {
 	{
 		"goolord/alpha-nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons",
-		},
 		config = function()
 			local config_path = vim.fn.stdpath("config")
 			local nwd = require("nvim-web-devicons")
@@ -56,8 +52,8 @@ return {
 			local default_mru_ignore = { "gitcommit" }
 
 			local mru_opts = {
-				ignore = function(_path, ext)
-					return (string.find(_path, "COMMIT_EDITMSG")) or (vim.tbl_contains(default_mru_ignore, ext))
+				ignore = function(fpath, ext)
+					return (string.find(fpath, "COMMIT_EDITMSG")) or (vim.tbl_contains(default_mru_ignore, ext))
 				end,
 			}
 
@@ -104,7 +100,7 @@ return {
 						end
 					end
 
-					local shortcut = ""
+					local shortcut
 					if i <= #special_shortcuts then
 						shortcut = special_shortcuts[i]
 					else
@@ -124,7 +120,7 @@ return {
 				[[             '-.`\()/`.-'           ]],
 				[[            .--_'(  )'_--.          ]],
 				[[           / /` /`""`\ `\ \         ]],
-				[[            |  |  王  |  |          ]],
+				[[            |  |      |  |          ]],
 				[[            \  \      /  /          ]],
 				[[                '.__.'              ]],
 			}
@@ -192,7 +188,7 @@ return {
 					{ type = "padding", val = 1 },
 					dashboard.button("h", "  Check Health", ":checkhealth<CR>", {}),
 					{ type = "padding", val = 1 },
-					dashboard.button("q", "  Quit", ":qa<CR>", {}),
+					dashboard.button("q", "🚅 Quit", ":qa<CR>", {}),
 				},
 				position = "center",
 			}
@@ -208,7 +204,6 @@ return {
 				},
 				opts = { margin = 5 },
 			}
-
 			alpha.setup(opts)
 		end,
 	},

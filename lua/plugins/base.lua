@@ -8,7 +8,6 @@ return {
 	{ "windwp/nvim-ts-autotag", lazy = "true", event = { "BufReadPre", "BufNewFile" }, opts = {} },
 	{ "akinsho/bufferline.nvim", event = "BufReadPost", opts = {} },
 	{ "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },
-	{ "github/copilot.vim", enabled = false },
 	{ "stevearc/dressing.nvim", event = "VeryLazy" },
 	{ "sindrets/diffview.nvim", cmd = { "DiffviewOpen" }, keys = {
 		{ "<leader>df", "<cmd>DiffviewOpen<cr>" },
