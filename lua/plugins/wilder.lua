@@ -1,5 +1,6 @@
 return {
 	"gelguy/wilder.nvim",
+	build = ":UpdateRemotePlugins",
 	event = "CmdLineEnter",
 	config = function()
 		local wilder = require("wilder")

@@ -29,12 +29,14 @@ vim.cmd([[
   autocmd BufNewFile,BufRead nginx.*      set filetype=nginx
 ]])
 
--- put the key binding here to allow using :Telescope to load the plugin in a lazy way
+-- put the key binding here to allow using :Command to load the plugin in a lazy way
 vim.cmd([[
   nnoremap <C-p>      <cmd>Telescope find_files<CR>
-  nnoremap <leader>f  <cmd>Telescope resume<CR>
   nnoremap <leader>ff <cmd>Telescope find_files<CR>
+  nnoremap <leader>f  <cmd>Telescope resume<CR>
   nnoremap <leader>fg <cmd>Telescope live_grep<CR>
   nnoremap <leader>fb <cmd>Telescope buffers<CR>
   nnoremap <leader>fh <cmd>Telescope help_tags<CR>
+
+  nnoremap <leader>rr <cmd>LspRestart<CR>
 ]])
