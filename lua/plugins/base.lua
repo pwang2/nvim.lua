@@ -11,7 +11,7 @@ return {
 	{ "akinsho/bufferline.nvim", event = "BufReadPost", opts = {} },
 	{ "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },
 	{ "github/copilot.vim", enabled = false },
-	{ "sindrets/diffview.nvim", keys = {
+	{ "sindrets/diffview.nvim", cmd = { "DiffviewOpen" }, keys = {
 		{ "<leader>df", "<cmd>DiffviewOpen<cr>" },
 	} },
 	{

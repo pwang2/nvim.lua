@@ -51,6 +51,9 @@ require("lazy").setup({
 		-- border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
 		border = "rounded",
 	},
+	diff = {
+		cmd = "diffview.nvim",
+	},
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.
 	install = { colorscheme = { "onehalfdark" } },

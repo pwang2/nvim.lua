@@ -5,6 +5,7 @@ return {
 		local prettier = require("formatter.defaults.prettier")
 		require("formatter").setup({
 			filetype = {
+				rust = { require("formatter.filetypes.rust").rustfmt },
 				python = { require("formatter.filetypes.python").yapf },
 				lua = { require("formatter.filetypes.lua").stylua },
 				typescript = { prettier },

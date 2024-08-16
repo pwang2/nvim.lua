@@ -1,7 +1,7 @@
 return {
 	"nvim-tree/nvim-tree.lua",
 	version = "*",
-	lazy = true,
+	cmd = { "NvimTreeOpen", "NvimTreeToggle" },
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 	},
